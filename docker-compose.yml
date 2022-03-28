@@ -1,0 +1,29 @@
+version: '3.7'
+
+x-image: &image
+    image: content-display
+
+services:
+  redis:
+    image: redis:6.0.9-alpine
+    command: redis-server
+    ports:
+      - 6379:6379
+
+  web:
+    <<: *image
+    build:
+      context: .
+    working_dir: /home/appuser/app
+    entrypoint: ''
+    volumes:
+      - .:/home/appuser/app
+    ports:
+      - 8000:8000
+    environment:
+      - INIT_ADMIN_USER=admin
+      - INIT_ADMIN_PASS=admin
+      - INIT_ADMIN_EMAIL=srkn_cngz@hotmail.com.tr
+      - PYTHONPATH=/home/appuser/app
+    depends_on:
+      - redis

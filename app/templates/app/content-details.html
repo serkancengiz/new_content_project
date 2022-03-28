@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %} Content Details {% endblock %}
+
+{% block content %}
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3 text-center">
+                {% include 'partials/_channels.html' %}
+            </div>
+            <div class="col-9 text-center">
+                <h1>Content Details</h1>
+                <hr>
+                {% if contents|length > 0 %}
+                    {% for content in contents %}
+                        {% if content.is_active %}
+                            {% load static %}
+                            <div class="card mb-3" style="max-width: 500px;">
+                                <div class="row g-0">
+                                    <div class="col-md-3">
+                                        <img src="{{ content.image.url }}" alt="" class="img-fluid">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                {{ content.title }}
+                                            </h5>
+                                            <div class="post_body">
+                                                {{ content.description_detail|safe|truncatewords:"20"|linebreaks }}
+                                                <a href="{% url 'detail' content.slug %}">see more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-warning">No Contents</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

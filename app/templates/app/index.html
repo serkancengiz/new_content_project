@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+{% endblock %}
+
+{% block title %}Content Display{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3 text-center">
+                {% include 'partials/_channels.html' %}
+            </div>
+            <div class="col-9 text-center">
+                <h1>All Contents</h1>
+                <hr>
+                {% for content in contents %}
+                    {% if content.is_active %}
+                        {% include 'app/partials/_content.html' %}
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js_files %}
+    <script src="{% static 'app/js/script.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %} Contents{% endblock %}
+
+{% block content %}
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-3 text-center">
+                {% include 'partials/_channels.html' %}
+            </div>
+            <div class="col-9 text-center">
+                <h1>{{ selected_channel|title }}</h1>
+                <hr>
+                {% if contents|length > 0 %}
+                    {% for content in contents %}
+                        {% if content.is_active %}
+                            {% include 'app/partials/_content.html' %}
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-warning">No Contents</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
